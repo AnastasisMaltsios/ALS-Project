@@ -1,0 +1,53 @@
+.container {
+    padding: 5px 0;
+    margin-left: 60px;
+}
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    font-size: 17px;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+.navbar-brand {
+    color: white !important;
+}
+.navbar-nav li a {
+    color: white !important;
+}
+.navbar-nav  li a:hover {   
+    background-color: #6495ed !important;
+}    
+.navbar-toggle {
+    background-color: white !important;
+}
+span {
+    background-color: gray !important;
+}
+
+#main-page {
+  padding-top: 3%;
+  color: #fff;
+  text-align: center;
+}
+img {
+    max-width: 100%;
+    transition: transform 200ms ease-in-out ;
+    padding-top: 20px;
+}
+img:hover {
+    transform: scale(1.1);
+}
+.auto {
+    margin-top: 25px;
+}
+.footer {
+    font-size: 16px;
+    position: absolute;
+	text-align: center;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+}

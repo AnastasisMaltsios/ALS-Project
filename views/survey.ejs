@@ -1,0 +1,261 @@
+<%- include("partials/navbar") %> 
+<section id="survey">
+  <h1 class="titles">Patient's Survey</h1>
+  <% if (user.patients.length === 0) { %>
+    <p>You currently have no patients. Please <a href="/add-pat">add a patient</a>.</p>
+  <% } else { %>
+    <div  class="pat-select">
+      <label for="patients">Select a patient:</label>
+      <select name="patients" id="pat-options">
+        <% for (var i = 0; i < user.patients.length; i++) { %>
+          <option value="<%= user.patients[i]._id %>">
+            <%= user.patients[i].fname %> <%= user.patients[i].lname %>
+          </option>
+        <% } %>
+      </select>
+    </div>
+  <% } %>
+  <form action="/survey" method="post" id="survey-form">
+    <input type="hidden" name="patientId" id="patientId">
+  <div class="container-fluid">
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Speech</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal</div>
+        <div class="btn-sur btn" data-value="2">Detectable speech disturbance</div>
+        <div class="btn-sur btn" data-value="3">Intelligible with repeating</div>
+        <div class="btn-sur btn" data-value="4">Speech combined with nonvocal communications</div>
+        <div class="btn-sur btn" data-value="5">Loss of useful speech</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Salivation</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal</div>
+        <div class="btn-sur btn" data-value="2">Slight but definite excess of saliva in mouth; may have nighttime drooling</div>
+        <div class="btn-sur btn" data-value="3">Moderately excessive saliva; may have minimal drooling</div>
+        <div class="btn-sur btn" data-value="4">Marked excess of saliva with some drooling</div>
+        <div class="btn-sur btn" data-value="5">Marked drooling; requires constant tissue or handkerchief</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Swallowing</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal eating habits</div>
+        <div class="btn-sur btn" data-value="2">Early eating problems; occasional choking</div>
+        <div class="btn-sur btn" data-value="3">Dietary consistency changes</div>
+        <div class="btn-sur btn" data-value="4">Needs supplemental tube feedings</div>
+        <div class="btn-sur btn" data-value="5">Nothing by mouth; exclusively parenteral or enteral feeding</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Handwriting</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal</div>
+        <div class="btn-sur btn" data-value="2">Slow or sloppy; all words are legible</div>
+        <div class="btn-sur btn" data-value="3">Not all words are legible</div>
+        <div class="btn-sur btn" data-value="4">Able to grip pen but unable to write</div>
+        <div class="btn-sur btn" data-value="5">Unable to grip pen</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Cutting food and handling utensils</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal</div>
+        <div class="btn-sur btn" data-value="2">Somewhat slow and clumsy but no help needed</div>
+        <div class="btn-sur btn" data-value="3">Can cut most foods although clumsy and slow; some help needed</div>
+        <div class="btn-sur btn" data-value="4">Food must be cut by someone but can still feed slowly</div>
+        <div class="btn-sur btn" data-value="5">Needs to be fed</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Dressing and hygiene</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal function</div>
+        <div class="btn-sur btn" data-value="2">Independent and complete self-care with effort or decreased efficiency</div>
+        <div class="btn-sur btn" data-value="3">Intermittent assistance or substitute methods</div>
+        <div class="btn-sur btn" data-value="4">Needs attendant for self-care</div>
+        <div class="btn-sur btn" data-value="5">Total dependence</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Turning in bed and adjusting bed clothes</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal</div>
+        <div class="btn-sur btn" data-value="2">Somewhat slow and clumsy but no help needed</div>
+        <div class="btn-sur btn" data-value="3">Can turn alone or adjust sheets but with great difficulty</div>
+        <div class="btn-sur btn" data-value="4">Can initiate but not turn or adjust sheets alone</div>
+        <div class="btn-sur btn" data-value="5">Helpless</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Walking</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal</div>
+        <div class="btn-sur btn" data-value="2">Early ambulation difficulties</div>
+        <div class="btn-sur btn" data-value="3">Walks with assistance</div>
+        <div class="btn-sur btn" data-value="4">Nonambulatory functional movement</div>
+        <div class="btn-sur btn" data-value="5">No purposeful leg movement</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Climbing stairs</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">Normal</div>
+        <div class="btn-sur btn" data-value="2">Slow</div>
+        <div class="btn-sur btn" data-value="3">Mild unsteadiness or fatigue</div>
+        <div class="btn-sur btn" data-value="4">Needs assistance</div>
+        <div class="btn-sur btn" data-value="5">Cannot do</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Dyspnea</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">None</div>
+        <div class="btn-sur btn" data-value="2">Occurs when walking</div>
+        <div class="btn-sur btn" data-value="3">Occurs with one or more of the following: eating, bathing, dressing</div>
+        <div class="btn-sur btn" data-value="4">Occurs at rest, difficulty breathing when either sitting or lying</div>
+        <div class="btn-sur btn" data-value="5">Significant difficulty, considering using mechanical respiratory support</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Orthopnea</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">None</div>
+        <div class="btn-sur btn" data-value="2">Some difficulty sleeping at night due to shortness of breath; does not routinely use >2 pillows</div>
+        <div class="btn-sur btn" data-value="3">Needs extra pillows in order to sleep (>2)</div>
+        <div class="btn-sur btn" data-value="4">Can only sleep sitting up</div>
+        <div class="btn-sur btn" data-value="5">Unable to sleep</div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="sur-hr">
+      <div class="col-md-6">
+        <p class="sur-p">Respiratory insufficiency</p>
+      </div>
+      <div class="col-md-6 button-group">
+        <div class="btn-sur btn active" data-value="1">None</div>
+        <div class="btn-sur btn" data-value="2">Intermittent use of BiPAP</div>
+        <div class="btn-sur btn" data-value="3">Continuous use of BiPAP during the night</div>
+        <div class="btn-sur btn" data-value="4">Continuous use of BiPAP during the night and day</div>
+        <div class="btn-sur btn" data-value="5">Invasive mechanical ventilation by intubation or tracheostomy</div>
+      </div>
+    </div>
+  
+
+<div class="sur-res">
+  <div class="score-wrapper">
+    <div id="score">Score : 20%</div>
+    <div id="rating">Rating : Low.</div>
+  </div>
+  <button class="act-sur btn btn-primary" type="submit">Save Results</button>
+</div>
+</div>
+  
+    
+    <script>
+      var buttonGroups = document.querySelectorAll('.button-group');
+      var score = document.getElementById('score');
+      var buttons = document.querySelectorAll('.btn-sur');
+  // ...
+
+//   const patientId = document.querySelector('#pat-options').value;
+//   const results = [];
+//   buttons.forEach(button => {
+//     if (button.classList.contains('active')) {
+//       results.push(button.getAttribute('data-value'));
+//     }
+//   });
+//   const formData = new FormData(document.querySelector('#survey-form'));
+//   formData.set('patientId', patientId);
+//   formData.set('results', JSON.stringify(results));
+//   formData.set('score', percentage);
+//   formData.set('rating', message);
+// console.log(formData);
+//   const xhr = new XMLHttpRequest();
+//   xhr.open('POST', '/survey');
+//   xhr.send(formData);
+// }
+      function calculateResult() {
+        var totalScore = 0;
+        var totalPossibleScore = 0;
+        for (var i = 0; i < buttonGroups.length; i++) {
+          var activeButtons = buttonGroups[i].querySelectorAll('.btn.active');
+          var groupScore = 0;
+          var groupPossibleScore = activeButtons.length;
+          for (var j = 0; j < activeButtons.length; j++) {
+            groupScore += parseInt(activeButtons[j].getAttribute('data-value'));
+          }
+          totalScore += groupScore;
+          totalPossibleScore += groupPossibleScore;
+        }
+        var percentage = 0;
+        if (totalPossibleScore !== 0) {
+          percentage = Math.round((totalScore / totalPossibleScore) * 20);
+        }
+        var message = "";
+
+  if (percentage >= 0 && percentage < 10) {
+    message = "Rating : Very Low.";
+  } else if (percentage >= 10 && percentage < 30) {
+    message = "Rating : Low.";
+  } else if (percentage >= 30 && percentage < 60) {
+    message = "Rating : Average.";
+  } else if (percentage >= 60 && percentage < 80) {
+    message = "Rating : Good.";
+  } else if (percentage >= 80 && percentage <= 100) {
+    message = "Rating : Excellent!";
+  }
+  var rating = document.getElementById("rating");
+  score.innerHTML =  "Score : " + percentage + "%";
+  rating.innerHTML = message;
+
+}
+    
+      buttons.forEach(button => {
+        button.addEventListener('click', function() {
+          var group = this.parentNode;
+          var buttonsInGroup = group.querySelectorAll('.btn-sur');
+          buttonsInGroup.forEach(button => {
+            button.classList.remove('active');
+          });
+          this.classList.add('active');
+          calculateResult();
+        });
+      });
+    </script>
+      </section>
+<%- include("partials/footer") %> 

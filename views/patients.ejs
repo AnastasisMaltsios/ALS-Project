@@ -1,0 +1,45 @@
+<%- include("partials/navbar") %> 
+
+<section id="patient">
+<h1 class="titles">Patients</h1>
+<!-- <a role="button" href="/add" >View patients</a>
+<label for="site-search">Search a patient</label>
+<input type="search" placeholder="Search a patient">
+<button type="submit">Search</button> -->
+
+<% if (user.patients.length === 0) { %>
+    <p>You currently have no patients. Please <a href="/add-pat">add a patient</a>.</p>
+  <% } else { %>
+<table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Sex</th>
+            <th>Age</th>
+            <th>SSN</th>
+            <th>Phone</th>
+            <th>First Visit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (var i = 0; i < user.patients.length; i++) { %>
+            <tr>
+              <td> <%= user.patients[i].fname %></td>
+              <td> <%= user.patients[i].lname %></td>
+              <td> <%= user.patients[i].address %></td>
+              <td> <%= user.patients[i].sex %></td>
+              <td> <%= user.patients[i].age %></td>
+              <td> <%= user.patients[i].ssn %></td>
+              <td> <%= user.patients[i].phone %></td>
+              <td> <%= user.patients[i].fv.toDateString() %></td>
+            </tr>
+          <% } %>
+          <% } %>
+    </tbody>
+</table>
+</section>
+
+
+<%- include("partials/footer") %> 

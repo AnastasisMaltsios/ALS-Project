@@ -1,0 +1,53 @@
+body {
+    background-color: #E4E9FD;
+    background-image: -webkit-linear-gradient(65deg, #62B6B7 50%, #97DECE 50%);
+    min-height: 90vh;
+}
+
+.container-fluid {
+    background: #FAF8F1;
+    margin: 65px auto;
+    max-width: 550px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+.col, .col-xs-6 {
+    padding-bottom: 15px;
+}
+
+.header,.sign-button {
+    text-align: center;
+    padding: 10px 0;
+}
+img {
+    max-width: 70%;
+}
+.bot, .uni-img{
+    text-align: center;
+    padding: 5px 0;
+}
+.logs {
+    padding-top: 20px;
+}
+
+.pass-reset {
+    text-align: right;
+    margin-top: 10px;
+}
+.log-in-button {
+    text-align: center;
+    padding-top: 22px;
+}
+ /* p {
+    margin-top: 10px;
+    font-size: 16px;
+} */
+
+.footer {
+    font-size: 16px;
+    position: absolute;
+	text-align: center;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+}
