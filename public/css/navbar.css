@@ -13,6 +13,7 @@
     background-color: #4169e1 !important;
 }
  .navbar-brand {
+    margin-bottom: 10px;
     color: white !important;
 }
 .navbar-nav li a {

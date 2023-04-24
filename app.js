@@ -206,6 +206,7 @@ app.get("/logout", function(req, res, next){
     });
   });
 
+  
   app.post("/add-pat", function(req, res){
 
     const patient = new Patient ({
@@ -234,13 +235,29 @@ app.get("/logout", function(req, res, next){
             if (err) {
               console.log(err);
             } else {
-              res.redirect("/survey");
+              res.redirect("/add-pat");
             }
         });
       }
     });
   });
 
+app.post("/patients/:id", function(req, res) {
+  const patientId = req.params.id;
+  User.findOneAndUpdate(
+    { _id: req.user._id }, // Find the currently authenticated user by their ObjectId
+    { $pull: { patients: patientId } }, // Remove the patientId from the user's patients array
+    { new: true } // Retrieve the updated user document
+  )
+  .populate('patients') // Optional: explicitly populate the patients array to ensure it's fully populated
+  .exec(function(err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect('/patients');
+    }
+  });
+});
 app.post("/settings", function(req, res){
 
 const userId = req.user.id;
@@ -252,56 +269,16 @@ const userId = req.user.id;
   });
 });
 
-app.post('/survey', async (req, res) => {
-  const { patientId, results, score, rating } = req.body;
-  const survey = new Survey({ patient: patientId, results, score, rating });
-  try {
-    await survey.save();
-    res.redirect('/');
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
-  }
+
+app.post("/survey", function(req, res){
+
 });
-
-// app.post("/survey", function(req, res) {
-
-//   console.log(req.body.group1);
-//   var group1 = req.body.group1;
-//   var group2 = req.body.group2;
-//   var totalValue = 0;
-//   var selectedCount = 0;
-//   function saveSelection() {
-//     // var groupB1 = document.getElementsByClassName('btn-group1');
-//     // var groupB2 = document.getElementsByClassName('btn-group2');
-   
-//   // Loop through button group 1
-//   for (var i = 0; i < group1.length; i++) {
-//       totalValue += parseInt(group1[i]);
-//       selectedCount++;
-//   }
-
-//   // Loop through button group 2
-//   for (var i = 0; i < group2.length; i++) {
-//       totalValue += parseInt(group2[i]);
-//       selectedCount++;
-//   }
-
-//   // Calculate the percentage
-//   var percentage = (totalValue / (selectedCount * 6)) * 100;
-
-//   // Render the EJS template with the result
-//   res.render("survey", {title:"survey", percentage: percentage });
-//   console.log(percentage);
-//   };
-//  });
-// app.post("/survey", function(req, res){
 
   app.post("/log-in", function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
       if (!user) {
-        // Pass an error message to the rendered HTML page
+        // Pass the error message to the rendered HTML page
         return res.render('log-in', { title: "log-in" ,errorMessage:"Invalid username or password." });
       }
       req.logIn(user, function(err) {
