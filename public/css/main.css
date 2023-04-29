@@ -1,8 +1,26 @@
 .titles {
-  font-family: "Times New Roman", Times, serif;
+    color: #33363D;
     text-align: center;
     padding: 25px 0;
     font-size: 40px;
+}
+
+/* Main */
+.prologue {
+  max-width: 88%;
+  border: 1px solid #c2b2bc ;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.4);
+  padding: 1.5% 5% 0 5%;
+  text-align: center;
+}
+.mg-main {
+  margin-bottom: 50px;
+}
+.main-p {
+font-size: 19px;
+}
+.target-m {
+  font-weight: 700;
 }
 
 /* Patients */
@@ -14,10 +32,9 @@ table {
   text-align: center;
 }
 table.container-fluid td {
-  width: 12.5%;
+  width: 11.11%;
 }
 
-/* Style for the table headers */
 th {
   text-align: center;
   background-color: #f2f2f2;
@@ -27,21 +44,59 @@ th {
   border: 1px solid #cccccc;
 }
 
-/* Style for the table cells */
 td {
   padding: 10px;
   border: 1px solid #cccccc;
 }
 
-/* Style for alternate rows */
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-/* Hover effect for table rows */
 tr:hover {
   background-color: #dddddd;
 }
+
+/* History Patients */
+.card-container {
+  padding-top: 20px;
+}
+
+.card {
+  text-align: left;
+  border: 1px solid #c2b2bc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.card-header {
+  text-align: center;
+  font-size: 23px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.card-body {
+  font-size: 18px;
+  padding: 25px 50px ;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+} 
+
+strong {
+  display: inline-block; 
+  width: 180px; 
+}
+
+/* Add a patient */
 #patient {
     text-align: center;
     padding: 0 4%;
@@ -51,7 +106,7 @@ tr:hover {
 .pat-container{
     padding: 2%;
     max-width: 800px;
-    border-radius: 5px;
+    border: 1px solid #c2b2bc ;
     box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
 }
 .pat-select {
@@ -75,29 +130,18 @@ tr:hover {
     margin: 6% auto 0 auto;
     color: white;
     background-color: #008080;
-    max-width: 500px;
-    height: 200px;
+    max-width: 450px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-#score {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
 
-#rating, .act-sur {
-  font-size: 20px;
+.act-sur {
+  font-size: 21px;
+  padding: 10px 15px;
 }
-
-.score-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
 .act-sur:hover {
     background-color: #20b2aa;
     color: white;
@@ -158,5 +202,4 @@ tr:hover {
     text-align: right;
 }
 
-/* Diagrams */
 

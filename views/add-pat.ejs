@@ -1,6 +1,5 @@
 <%- include("partials/navbar") %> 
 
-
 <section>
     <h1 class="titles">Add a Patient</h1>
     <form action="/add-pat" method="post" id="myForm">
@@ -80,10 +79,8 @@
     document.getElementById('myForm').addEventListener('submit', function(event) {
   event.preventDefault(); // prevent the default form submission
   let err = false;
-  // check for any errors here
   if (!err) {
-    $('#myModal').modal('show'); // show the modal if there are no errors
-    // submit the form data using AJAX here
+    $('#myModal').modal('show'); 
   }
 });
 $('#myModal').on('hidden.bs.modal', function (e) {

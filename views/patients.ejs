@@ -2,11 +2,45 @@
 
 <section id="patient">
 <h1 class="titles">Patients</h1>
+<% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+  <div class="table-responsive">
+    <table class="container-fluid" style="margin-bottom: 165px;">
+      <thead>
+        <tr>
+          <th>Patient Name</th>
+          <th>Address</th>
+          <th>Sex</th>
+          <th>Age</th>
+          <th>SSN</th>
+          <th>Phone</th>
+          <th>First Visit</th>
+          <th>Survey History</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (var i = 0; i < allPatients.length; i++) { %>
+          <tr>
+            <td><%= allPatients[i].fname %> <%= allPatients[i].lname %></td>
+            <td><%= allPatients[i].address %></td>
+            <td><%= allPatients[i].sex %></td>
+            <td><%= allPatients[i].age %></td>
+            <td><%= allPatients[i].ssn %></td>
+            <td><%= allPatients[i].phone %></td>
+            <td><%= allPatients[i].fv.toDateString() %></td>
+            <td><a role="button" class="btn btn-info" href="/history/<%= allPatients[i]._id %>">View History</a></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+          
 
-<% if (user.patients.length === 0) { %>
-    <p>You currently have no patients. Please <a href="/add-pat">add a patient</a>.</p>
+
+<%} else if (user && user.patients.length === 0) { %>
+    <p style="margin-bottom: 23%;">You currently have no patients. Please <a href="/add-pat">add a patient</a>.</p>
   <% } else { %>
-<table class="container-fluid">
+    <div class="table-responsive">
+<table class="container-fluid" style="margin-bottom: 17%;">
     <thead>
         <tr>
           <th>Patient Name</th>
@@ -16,6 +50,7 @@
             <th>SSN</th>
             <th>Phone</th>
             <th>First Visit</th>
+            <th>Survey History</th>
             <th>Remove Patient</th>
         </tr>
     </thead>
@@ -23,13 +58,13 @@
         <% for (var i = 0; i < user.patients.length; i++) { %>
             <tr>
               <td> <%= user.patients[i].fname %> <%= user.patients[i].lname %></td>
-              <!-- <td> </td> -->
               <td> <%= user.patients[i].address %></td>
               <td> <%= user.patients[i].sex %></td>
               <td> <%= user.patients[i].age %></td>
               <td> <%= user.patients[i].ssn %></td>
               <td> <%= user.patients[i].phone %></td>
               <td> <%= user.patients[i].fv.toDateString() %></td>
+              <td><a role="button" class="btn btn-info" href="/history/<%= user.patients[i]._id %>">View History</a></td>
               <td>
                 <form action="/patients/<%= user.patients[i]._id %>" id="patient-form" method="post">
                   <button type="button" class="btn btn-danger" onclick="deletePatient('<%= user.patients[i]._id %>')" data-toggle="modal" data-target="#myPatients<%= user.patients[i]._id %>">Delete</button>
@@ -54,9 +89,10 @@
               </td>
             </tr>
           <% } %>
-          <% } %>
-    </tbody>
-</table>
+          </tbody>
+    </table>
+  </div>
+<% } %>
 <script>
   function deletePatient(patientId) {
   $("#delete-patient-id").val(patientId);

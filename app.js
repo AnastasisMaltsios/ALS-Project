@@ -26,6 +26,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function(req, res, next) {
+  if (req.isAuthenticated() && req.user.isAdmin) {
+    User.findById(req.user._id, function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      req.user = user;
+      req.isAdmin = user.isAdmin;
+      next();
+    });
+  } else {
+    req.isAdmin = false;
+    next();
+  }
+});
+
 mongoose.connect("mongodb://127.0.0.1:27017/alsDB", {useNewUrlParser: true});
 
 const usersSchema = new mongoose.Schema ({
@@ -35,6 +51,7 @@ const usersSchema = new mongoose.Schema ({
     phone: Number,
     username: String,
     password: String,
+    isAdmin: { type: Boolean, default: false },
     patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient', autopopulate: true }]
 });
 
@@ -49,24 +66,21 @@ const patientsSchema = new mongoose.Schema({
   fv: Date
 });
 
-const surveySchema = new mongoose.Schema({
-  patient: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Patient',
-    required: true,
-  },
-  results: {
-    type: Array,
-    required: true,
-  },
-  score: {
-    type: Number,
-    required: true,
-  },
-  rating: {
-    type: String,
-    required: true,
-  },
+const surveysSchema = new mongoose.Schema({
+  patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient', required: true},
+  speech: {type: String, required: true},
+  salivation: {type: String, required: true},
+  swallowing: {type: String, required: true},
+  handwriting: {type: String, required: true},
+  cuttingFood: {type: String, required: true},
+  dressingHygiene: {type: String, required: true},
+  turningInBed: {type: String, required: true},
+  walking: {type: String, required: true},
+  climbingStairs: {type: String, required: true},
+  dyspnea: {type: String, required: true},
+  orthopnea: {type: String, required: true},
+  respiratoryInsufficiency: { type: String, required: true },
+  date: {type: Date, default: Date.now}
 });
 
 
@@ -76,7 +90,7 @@ usersSchema.plugin(findOrCreate);
 
 const User = mongoose.model("User", usersSchema);
 const Patient = mongoose.model("Patient", patientsSchema);
-const Survey = mongoose.model('Survey', surveySchema);
+const Survey = mongoose.model('Survey', surveysSchema);
 
 passport.use(User.createStrategy());
 
@@ -110,17 +124,29 @@ app.get("/pass-reset", function(req, res){
 })
 
 app.get("/patients", function(req, res){
-  if (req.isAuthenticated()) {
-    User.findById(req.user._id).populate('patients').exec(function(err, user) {
+  // console.log('isAdmin:', req.isAdmin);
+  if (req.isAdmin) {
+    Patient.find({}, function(err, patients) {
       if (err) {
         console.log(err);
       } else {
-        res.render("patients", { user: user });
+        res.render('patients', { isAdmin: req.isAdmin , allPatients: patients });
       }
     });
   } else {
-    res.redirect("/log-in");
+    if (req.isAuthenticated()) {
+      User.findById(req.user._id).populate('patients').exec(function(err, user) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("patients", { user: user });
+        }
+      });
+    } else {
+      res.redirect("/log-in");
+    }
   }
+  
 });
 
 app.get("/add-pat", function(req, res){
@@ -224,13 +250,12 @@ app.get("/logout", function(req, res, next){
       if (err){
           console.log(err);
       } else {
-        // Update the currently logged-in user's patients array with the new patient's document
         User.findOneAndUpdate(
           { _id: req.user._id }, // Find the currently authenticated user by their ObjectId
           { $push: { patients: savedPatient } }, // Add the new patient's document to the user's patients array
           { new: true, autopopulate: true } // Retrieve the updated user document with the autopopulated patients array
         )
-        .populate('patients') // Optional: explicitly populate the patients array to ensure it's fully populated
+        .populate('patients')
         .exec(function(err, user) {
             if (err) {
               console.log(err);
@@ -245,11 +270,11 @@ app.get("/logout", function(req, res, next){
 app.post("/patients/:id", function(req, res) {
   const patientId = req.params.id;
   User.findOneAndUpdate(
-    { _id: req.user._id }, // Find the currently authenticated user by their ObjectId
-    { $pull: { patients: patientId } }, // Remove the patientId from the user's patients array
-    { new: true } // Retrieve the updated user document
+    { _id: req.user._id }, 
+    { $pull: { patients: patientId } },
+    { new: true }
   )
-  .populate('patients') // Optional: explicitly populate the patients array to ensure it's fully populated
+  .populate('patients') 
   .exec(function(err, user) {
     if (err) {
       console.log(err);
@@ -257,6 +282,20 @@ app.post("/patients/:id", function(req, res) {
       res.redirect('/patients');
     }
   });
+});
+
+
+app.get("/history/:id", async function(req, res) {
+  try {
+    const patient = await Patient.findById(req.params.id).exec();
+    const surveys = await Survey.find({patient: patient._id}).exec();
+    res.render('history', {
+      patient: patient,
+      surveys: surveys
+    });
+  } catch (err) {
+    console.error(err);
+  }
 });
 app.post("/settings", function(req, res){
 
@@ -271,9 +310,30 @@ const userId = req.user.id;
 
 
 app.post("/survey", function(req, res){
+    const survey = new Survey ({
+      patient: req.body.patientId,
+      speech: req.body["speech"],
+      salivation: req.body["salivation"],
+      swallowing: req.body["swallowing"],
+      handwriting: req.body["handwriting"],
+      cuttingFood: req.body["cutting-food"],
+      dressingHygiene: req.body["dressing-hygiene"],
+      turningInBed: req.body["turning-in-bed"],
+      walking: req.body["walking"],
+      climbingStairs: req.body["climbing-stairs"],
+      dyspnea: req.body["dyspnea"],
+      orthopnea: req.body["orthopnea"],
+      respiratoryInsufficiency: req.body["respiratory-insufficiency"],
+    });
 
+    survey.save(function(err, savedSurvey){
+      if (err){
+          console.log(err);
+      } else {
+        res.redirect("/survey");
+      }
 });
-
+});
   app.post("/log-in", function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
@@ -287,7 +347,6 @@ app.post("/survey", function(req, res){
       });
     })(req, res, next, function(err) {
       if (err) {
-        // If authentication fails, display the error message
         return res.render('log-in', { title: "log-in" ,errorMessage:"Invalid username or password." });
       }
     });

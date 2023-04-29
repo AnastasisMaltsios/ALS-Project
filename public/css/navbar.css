@@ -19,9 +19,7 @@
 .navbar-nav li a {
     color: white !important;
 }
-/* .names {
-    color: white !important;
-} */
+
 .navbar-nav  li a:hover {
     color: #1abc9c !important;
 }
@@ -37,7 +35,7 @@
     background-color: white;
 }
 .footer-padding {
-	padding-bottom: 60px;
+	padding-bottom: 50px;
 }
 
 .footer {
