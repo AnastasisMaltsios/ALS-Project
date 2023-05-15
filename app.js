@@ -8,6 +8,8 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const findOrCreate = require('mongoose-findorcreate');
 const populate = require('mongoose-autopopulate');
+const moment = require('moment-timezone');
+
 
 const app = express();
 
@@ -80,8 +82,7 @@ const surveysSchema = new mongoose.Schema({
   dyspnea: {type: String, required: true},
   orthopnea: {type: String, required: true},
   respiratoryInsufficiency: { type: String, required: true },
-  date: {type: Date, default: Date.now}
-});
+  date: {type: Date, default: Date.now, get: (val) => moment(val).format("DD/MM/YYYY")}});
 
 
 usersSchema.plugin(passportLocalMongoose);
@@ -119,12 +120,7 @@ app.get("/log-in", function(req, res){
     res.render("log-in", { errorMessage });
 })
 
-app.get("/pass-reset", function(req, res){
-    res.render("pass-reset")
-})
-
 app.get("/patients", function(req, res){
-  // console.log('isAdmin:', req.isAdmin);
   if (req.isAdmin) {
     Patient.find({}, function(err, patients) {
       if (err) {
@@ -157,14 +153,6 @@ app.get("/add-pat", function(req, res){
   }
 })
 
-app.get("/next-pat", function(req, res){
-  if (req.isAuthenticated()) {
-    res.render("next-pat")
-  } else {
-    res.redirect("/log-in");
-  }
-})
-
 app.get("/survey", function(req, res){
   if (req.isAuthenticated()) {
     User.findById(req.user._id).populate('patients').exec(function(err, user) {
@@ -174,14 +162,6 @@ app.get("/survey", function(req, res){
         res.render("survey", { user: user });
       }
     });
-  } else {
-    res.redirect("/log-in");
-  }
-})
-
-app.get("/diagrams", function(req, res){
-  if (req.isAuthenticated()) {
-    res.render("diagrams")
   } else {
     res.redirect("/log-in");
   }

@@ -4,35 +4,12 @@
     <%if (surveys.length === 0) { %>
       <p style="margin: 0 auto 23% auto;">You currently have no history for <b><%= patient.fname %> <%= patient.lname %></b>. You can <a href="/survey">add a survey here</a>.</p>
     <% } else { %>
-      <!-- <div class="card-container container-fluid">
-<div class="card">
-    <% for (var i = 0; i < surveys.length; i++) { %>
-        <div class="card-header">
-            Survey on <span style="text-decoration: underline; font-size: 21px;"><%= patient.fname %> <%= patient.lname %> - <%= surveys[i].date.toDateString() %></span>
-          </div>
-    <div class="card-body">
-      <p><strong>Speech:</strong> <%= surveys[i].speech %></p>
-      <p><strong>Salivation:</strong> <%= surveys[i].salivation %></p>
-      <p><strong>Swallowing:</strong> <%= surveys[i].swallowing %></p>
-      <p><strong>Handwriting:</strong> <%= surveys[i].handwriting %></p>
-      <p><strong>Cutting Food:</strong> <%= surveys[i].cuttingFood %></p>
-      <p><strong>Dressing Hygiene:</strong> <%= surveys[i].dressingHygiene %></p>
-      <p><strong>Turning in Bed:</strong> <%= surveys[i].turningInBed %></p>
-      <p><strong>Walking:</strong> <%= surveys[i].walking %></p>
-      <p><strong>Climbing Stairs:</strong> <%= surveys[i].climbingStairs %></p>
-      <p><strong>Dyspnea:</strong> <%= surveys[i].dyspnea %></p>
-      <p><strong>Orthopnea:</strong> <%= surveys[i].orthopnea %></p>
-      <p><strong>Respiratory Insufficiency:</strong> <%= surveys[i].respiratoryInsufficiency %></p>
-    </div>
-    <% } %>
-    <% } %>
-  </div>
-</div> -->
-<div class="card-container container-fluid">
+ 
+<div class="container-fluid">
   <% for (var i = 0; i < surveys.length; i++) { %>
     <div class="card">
       <div class="card-header">
-        Survey on <span style="text-decoration: underline; font-size: 21px;"><%= patient.fname %> <%= patient.lname %> - <%= surveys[i].date.toDateString() %></span>
+        Survey on <span style="text-decoration: underline; font-size: 21px;"><%= patient.fname %> <%= patient.lname %> - <%= surveys[i].date%></span>
       </div>
       <div class="card-body">
         <p><strong>Speech:</strong> <%= surveys[i].speech %></p>
@@ -49,6 +26,7 @@
         <p><strong>Respiratory Insufficiency:</strong> <%= surveys[i].respiratoryInsufficiency %></p>
       </div>
     </div>
+  <% } %>
   <% } %>
 </div>
 </section>

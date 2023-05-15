@@ -1,10 +1,10 @@
 <%- include("partials/navbar") %> 
 
-<section id="patient">
+<section id="patient" style="margin-bottom: 16%;">
 <h1 class="titles">Patients</h1>
 <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
   <div class="table-responsive">
-    <table class="container-fluid" style="margin-bottom: 165px;">
+    <table class="container-fluid">
       <thead>
         <tr>
           <th>Patient Name</th>
@@ -40,7 +40,7 @@
     <p style="margin-bottom: 23%;">You currently have no patients. Please <a href="/add-pat">add a patient</a>.</p>
   <% } else { %>
     <div class="table-responsive">
-<table class="container-fluid" style="margin-bottom: 17%;">
+<table class="container-fluid">
     <thead>
         <tr>
           <th>Patient Name</th>

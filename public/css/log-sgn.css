@@ -1,10 +1,11 @@
 body {
     background-color: #E4E9FD;
-    background-image: -webkit-linear-gradient(65deg, #62B6B7 50%, #97DECE 50%);
-    min-height: 90vh;
+    background-image: linear-gradient(45deg, #97DECE, #05BFDB, #088395 );
+    /* background-image: -webkit-linear-gradient(65deg, #62B6B7 50%, #97DECE 50%); */
 }
 
 .container-fluid {
+    padding: 0 2%;
     background: #FAF8F1;
     margin: 65px auto;
     max-width: 550px;
@@ -38,10 +39,6 @@ img {
     text-align: center;
     padding-top: 22px;
 }
- /* p {
-    margin-top: 10px;
-    font-size: 16px;
-} */
 
 .footer {
     font-size: 16px;

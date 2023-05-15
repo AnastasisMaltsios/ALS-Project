@@ -1,7 +1,82 @@
 <%- include("partials/navbar") %> 
+<form action="/next-pat" method="post" id="myForm2">
+    <div class="container-fluid pat-container">
+        <!-- Second form fields -->
+        <!-- <div class="row">
+            <div class="col-sm-6">
+              <label class="form-label">Last Name :</label>
+              <input type="text" class="form-control" name="lname" placeholder="Enter Last Name" required>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label">Social Security Number :</label>
+              <input type="text" class="form-control" name="ssn" placeholder="Social Security Number" required>
+            </div>
+          </div>
+          
+              <div class="row">
+                <div class="col-sm-6">
+                  <label class="form-label">First Visit :</label>
+                  <input type="date" class="form-control" name="firstv" required>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label">Age :</label>
+                  <input type="text" class="form-control" name="age" placeholder="Enter Second Name" required>
+                </div>
+              </div>
+    <div style="text-align: right;"> 
+        <button id="submitBtn" type="submit" class="btn btn-default" style="background-color: #146C94; color: aliceblue;" data-toggle="modal" data- 
+        target="#myModal">Submit</button>
+        <a href="/add-pat" class="btn btn-default" style="background-color: #146C94; color: aliceblue;">Previous</a>
+    </div>
+</form>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Patient Added</h4>
+      </div>
+      <div class="modal-body">
+        You can view your patients and make a survey.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- <script>
+    function submitForms() {
+      // submit both forms
+      document.getElementById('myForm').submit();
+      document.getElementById('myForm2').submit();
+    }
+  </script> -->
+<script>
+   document.getElementById('myForm2').addEventListener('submit', function(event) {
+  event.preventDefault();
+  let err = false;
+  if (!err) {
+    // const firstNameInput = document.querySelector('input[name="fname"]');
+    // const lastNameInput = document.querySelector('input[name="lname"]');
+    // const addressInput = document.querySelector('input[name="address"]');
 
+    // const firstNameValue = firstNameInput.value.charAt(0).toUpperCase() + firstNameInput.value.slice(1).toLowerCase();
+    // const lastNameValue = lastNameInput.value.charAt(0).toUpperCase() + lastNameInput.value.slice(1).toLowerCase();
+    // const addressValue = addressInput.value.charAt(0).toUpperCase() + addressInput.value.slice(1).toLowerCase();
+    // firstNameInput.value = firstNameValue;
+    // lastNameInput.value = lastNameValue;
+    // addressInput.value = addressValue;
 
+    $('#myModal').modal('show');
+  }
+});
 
+$('#myModal').on('hidden.bs.modal', function (e) {
+  document.getElementById('myForm2').submit();
+});
+</script>
 
 
 

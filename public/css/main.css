@@ -7,12 +7,15 @@
 
 /* Main */
 .prologue {
+  color: black;
+  background-image: linear-gradient(to bottom, #91a3b0  0%, #ADD8E6 100%);
   max-width: 88%;
   border: 1px solid #c2b2bc ;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.4);
   padding: 1.5% 5% 0 5%;
   text-align: center;
 }
+
 .mg-main {
   margin-bottom: 50px;
 }
@@ -45,6 +48,7 @@ th {
 }
 
 td {
+  color: #000000;
   padding: 10px;
   border: 1px solid #cccccc;
 }
@@ -67,7 +71,7 @@ tr:hover {
   border: 1px solid #c2b2bc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   background-color: #fff;
-  max-width: 900px;
+  max-width: 880px;
   margin: 0 auto 20px auto;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
@@ -80,9 +84,27 @@ tr:hover {
   font-size: 23px;
   background-color: #007bff;
   color: #fff;
-  padding: 15px;
+  padding: 12px;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+}
+.card-body {
+  font-size: 18px;
+  padding: 15px 40px ;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+} 
+
+/* .panel-heading {
+  padding: 0;
+}
+.panel-title {
+  text-align: center;
+  font-size: 23px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px;
+  
 }
 .card-body {
   font-size: 18px;
@@ -90,11 +112,47 @@ tr:hover {
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
 } 
-
-strong {
-  display: inline-block; 
-  width: 180px; 
+.survey-label {
+  display: inline-block;
+  width: 120px; 
+  font-weight: bold;
 }
+
+.survey-value {
+  display: inline-block;
+  margin-left: 10px; 
+} */
+strong {
+  display: inline-block;
+  width: 150px;
+  
+}
+/* .panel-group {
+  margin-bottom: 20px;
+}
+
+.panel-default > .panel-heading {
+  background-color: #f5f5f5;
+  border-color: #ddd;
+  padding: 10px 15px;
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.panel-body {
+  padding: 15px;
+}
+.panel-default {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.strong {
+  text-align: left;
+} */
+
 
 /* Add a patient */
 #patient {
@@ -104,10 +162,14 @@ strong {
 }
 
 .pat-container{
+    background-color: #DBDFEA;
     padding: 2%;
     max-width: 800px;
     border: 1px solid #c2b2bc ;
     box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+.pat-container .form-control {
+  background-color: #F6F1F1;
 }
 .pat-select {
   font-size: 18px;
@@ -147,6 +209,8 @@ strong {
     color: white;
 }
 .sur-p {
+  color: black;
+  font-size: 17px;
     margin-top: 15%;
 }
 .sur-hr {
