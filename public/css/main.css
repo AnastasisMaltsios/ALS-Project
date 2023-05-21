@@ -16,6 +16,10 @@
   text-align: center;
 }
 
+.main-img {
+  border-radius: 50%;
+  /* max-width: 80%; */
+}
 .mg-main {
   margin-bottom: 50px;
 }

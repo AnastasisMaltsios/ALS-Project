@@ -88,10 +88,13 @@
             </div>
           </div>
         </div>
-    
-        <div style="text-align: right;">
-          <button id="savePatientBtn" style="background-color: #146C94; color: aliceblue;" class="btn btn-default" type="submit" data-toggle="modal" data-target="#myModal">Save Patient</button>
+        <div>
+          <div>
+            <button id="prevStepBtn" style="background-color: #146C94; color: aliceblue;  text-align: left;" class="btn btn-default" type="button"> Previous Step</button>
+            <button  id="savePatientBtn" style=" margin-left: 520px; background-color: #146C94; color: aliceblue; text-align: right;" class="btn btn-default" type="submit" data-toggle="modal" data-target="#myModal">Save Patient</button>
+          </div>
         </div>
+        
       </div>
     </section>
 
@@ -119,11 +122,13 @@
 const step1 = document.querySelector('#step-1');
 const step2 = document.querySelector('#step-2');
 const nextBtn = document.querySelector('#nextStepBtn');
+const prevBtn = document.querySelector('#prevStepBtn');
 const saveBtn = document.querySelector('#savePatientBtn');
 
 // When the "Next Step" button is clicked, hide step 1 and show step 2
 nextBtn.addEventListener('click', function() {
   const requiredInputs = document.querySelectorAll('#step-1 input[required]');
+  const radioGroup = document.querySelectorAll('#step-1 input[name="gender"]:checked');
   let allInputsFilled = true;
   
   // Loop through each required input and check if it has a value
@@ -134,15 +139,25 @@ nextBtn.addEventListener('click', function() {
     }
   }
   
+  // Check if the radio button group is filled
+  if (radioGroup.length === 0) {
+    allInputsFilled = false;
+  }
+  
   // If all required inputs are filled, hide step 1 and show step 2
   if (allInputsFilled) {
     step1.style.display = 'none';
     step2.style.display = 'block';
   } else {
+    // If not all required inputs are filled, show an alert
     alert('Please fill all required inputs before moving to the next step.');
   }
 });
 
+prevBtn.addEventListener('click', function() {
+  step2.style.display = 'none';
+  step1.style.display = 'block';
+})
 document.getElementById('myForm').addEventListener('submit', function(event) {
   event.preventDefault();
   let err = false;
