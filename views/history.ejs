@@ -1,5 +1,5 @@
 <%- include("partials/navbar") %> 
-<section id="patient">
+<!-- <section id="patient">
     <h1 class="titles">Patient's History</h1>
     <%if (surveys.length === 0) { %>
       <p style="margin: 0 auto 23% auto;">You currently have no history for <b><%= patient.fname %> <%= patient.lname %></b>. You can <a href="/survey">add a survey here</a>.</p>
@@ -29,5 +29,111 @@
   <% } %>
   <% } %>
 </div>
+</section> -->
+<section id="patient">
+  <!-- Extra content above the history section -->
+  <div class="extra-content">
+    <h1 class="titles">Patient's History</h1>
+    <div class="extra-details">
+        <div class="card">
+          <div class="card-header">More Details on <%= patient.fname %> <%= patient.lname %></div>
+          <div class="card-body">
+            <div class="survey-detail">
+              <strong>Allergies:</strong>
+              <p><%= patient.allergies %></p>
+            </div>
+            <div class="survey-detail">
+              <strong>Medications:</strong>
+              <p><%= patient.medications %></p>
+            </div>
+            <div class="survey-detail">
+              <strong>Genetic Mutations:</strong>
+              <p><%= patient.mutations %></p>
+            </div>
+            <div class="survey-detail">
+              <strong>Family History:</strong>
+              <p><%= patient.famhistory %></p>
+            </div>
+            <div class="survey-detail">
+              <strong>Medical History:</strong>
+              <p><%= patient.medhistory %></p>
+            </div>
+            <div class="survey-detail">
+              <strong>Disease onset:</strong>
+              <p><%= patient.onset.toLocaleDateString() %></p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+  <h2 style="margin-top: 3%;">Survey History</h2>
+
+  <% if (surveys.length === 0) { %>
+    <p style="margin: 1% auto 13% auto;">You currently have no history for <b><%= patient.fname %> <%= patient.lname %></b>. You can <a href="/survey">add a survey here</a>.</p>
+  <% } else { %>
+    <div class="container-fluid history-section">
+      <div id="accordion">
+        <% for (var i = 0; i < surveys.length; i++) { %>
+          <div class="history-item">
+            <div class="history-header" id="heading<%= i %>">
+              <h5 class="mb-0">
+                <a class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= i %>" aria-expanded="true" aria-controls="collapse<%= i %>" role="button">
+                  Survey on <span><%= patient.fname %> <%= patient.lname %> - <%= surveys[i].date%></span>
+                </a>
+              </h5>
+            </div>
+            <div id="collapse<%= i %>" class="collapse" aria-labelledby="heading<%= i %>" data-parent="#accordion">
+              <div class="history-details">
+                <div class="survey-detail">
+                  <strong>Speech:</strong> <%= surveys[i].speech %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Salivation:</strong> <%= surveys[i].salivation %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Swallowing:</strong> <%= surveys[i].swallowing %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Handwriting:</strong> <%= surveys[i].handwriting %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Cutting Food:</strong> <%= surveys[i].cuttingFood %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Dressing Hygiene:</strong> <%= surveys[i].dressingHygiene %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Turning in Bed:</strong> <%= surveys[i].turningInBed %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Walking:</strong> <%= surveys[i].walking %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Climbing Stairs:</strong> <%= surveys[i].climbingStairs %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Dyspnea:</strong> <%= surveys[i].dyspnea %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Orthopnea:</strong> <%= surveys[i].orthopnea %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Respiratory Insufficiency:</strong> <%= surveys[i].respiratoryInsufficiency %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Total Points:</strong> <%= surveys[i].totalScore %>
+                </div>
+                <div class="survey-detail">
+                  <strong>Percentage:</strong> <%= surveys[i].percentage %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
 </section>
 <%- include("partials/footer") %> 

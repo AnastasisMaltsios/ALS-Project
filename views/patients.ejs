@@ -14,7 +14,7 @@
           <th>SSN</th>
           <th>Phone</th>
           <th>First Visit</th>
-          <th>Survey History</th>
+          <th>History Details</th>
         </tr>
       </thead>
       <tbody>
@@ -27,7 +27,7 @@
             <td><%= allPatients[i].ssn %></td>
             <td><%= allPatients[i].phone %></td>
             <td><%= allPatients[i].fv.toDateString() %></td>
-            <td><a role="button" class="btn btn-info" href="/history/<%= allPatients[i]._id %>">View History</a></td>
+            <td><a role="button" class="btn btn-info" href="/history/<%= allPatients[i]._id %>">More Details</a></td>
           </tr>
         <% } %>
       </tbody>
@@ -50,7 +50,7 @@
             <th>SSN</th>
             <th>Phone</th>
             <th>First Visit</th>
-            <th>Survey History</th>
+            <th>History Details</th>
             <th>Remove Patient</th>
         </tr>
     </thead>
@@ -63,8 +63,8 @@
               <td> <%= user.patients[i].age %></td>
               <td> <%= user.patients[i].ssn %></td>
               <td> <%= user.patients[i].phone %></td>
-              <td> <%= user.patients[i].fv.toDateString() %></td>
-              <td><a role="button" class="btn btn-info" href="/history/<%= user.patients[i]._id %>">View History</a></td>
+              <td> <%= user.patients[i].fv.toLocaleDateString() %></td>
+              <td><a role="button" class="btn btn-info" href="/history/<%= user.patients[i]._id %>">More Details</a></td>
               <td>
                 <form action="/patients/<%= user.patients[i]._id %>" id="patient-form" method="post">
                   <button type="button" class="btn btn-danger" onclick="deletePatient('<%= user.patients[i]._id %>')" data-toggle="modal" data-target="#myPatients<%= user.patients[i]._id %>">Delete</button>

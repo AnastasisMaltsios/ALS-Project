@@ -2,38 +2,44 @@
 <h1 class="titles">Account Settings</h1>
 <section>
     <form action="/settings" id="delete-form" method="post">
-        <div class="container-fluid pat-container" >
+        <div class="container-fluid pat-container">
+          <style>
+            .pat-container {
+              max-width: 700px;
+              padding: 1%;
+            }
+          </style>
             <div class="row settings">
-                <div class="col-xs-6">
-                    <h4> Username: <span class="set-span" value="user"><%= user %></span> </h4>
+                <div>
+                    <h4 class="info"> Username: <span class="set-span" value="user"><%= user %></span> </h4>
                 </div>
-                <div class="col-xs-6">
+                <!-- <div class="col-xs-6">
                     <button type="button">Change Username</button>
-                </div>
+                </div> -->
             </div>
             <div class="row settings">
-                <div class="col-xs-6">
-                    <h4>Name: <span class="set-span"><%= name %></span></h4>
+                <div>
+                    <h4 class="info">Name: <span class="set-span"><%= name %></span></h4>
                 </div>
-                <div class="col-xs-6">
+                <!-- <div class="col-xs-6">
                     <button type="button">Change Name</button>
-                </div>
+                </div> -->
             </div>
             <div class="row settings">
-                <div class="col-xs-6">
-                    <h4>Last Name: <span class="set-span"><%= lname %></span></h4>
+                <div>
+                    <h4 class="info">Last Name: <span class="set-span"><%= lname %></span></h4>
                 </div>
-                <div class="col-xs-6">
+                <!-- <div class="col-xs-6">
                     <button type="button">Change Last Name</button>
-                </div>
+                </div> -->
             </div>
             <div class="row settings">
-                <div class="col-xs-6">
-                    <h4>Email: <span class="set-span"><%= email %></span></h4>
+                <div>
+                    <h4 class="info">Email: <span class="set-span"><%= email %></span></h4>
                 </div>
-                <div class="col-xs-6">
+                <!-- <div class="col-xs-6">
                     <button type="button">Change Email</button>
-                </div>
+                </div> -->
             </div>
             <div class="stg-btn">
               <button type="button" class="btn btn-lg btn-danger btn-lg" style="border: 0;" data-toggle="modal" data-target="#myModal">

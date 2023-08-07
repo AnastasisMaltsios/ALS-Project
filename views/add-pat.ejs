@@ -60,125 +60,182 @@
       </div>
     </section>
     
-    <section id="step-2" style="display: none;">
+    <section id="step-2" style="display: none; margin-bottom: 46px;">
       <div class="container-fluid pat-container">
         <div class="row">
           <div class="col-sm-6">
-            <label class="form-label">First Visit :</label>
-            <input type="date" class="form-control" name="firstv" required>
+            <label class="form-label">Allergies :</label>
+            <input type="text" class="form-control" name="allergies" required>
           </div>
           <div class="col-sm-6">
-            <label class="form-label">Age :</label>
-            <input type="text" class="form-control" name="age" placeholder="Enter Age" required>
+            <label class="form-label">Medications :</label>
+            <select class="form-control" name="medications" required>
+              <option value="Riluzole">Riluzole</option>
+              <option value="Edaravone">Edaravone</option>
+             </select>
           </div>
         </div>
     
         <div class="row">
           <div class="col-sm-6">
-            <label class="form-label">Phone Number :</label>
-            <input type="text" class="form-control" name="phone" placeholder="Enter Phone" required>
+            <label class="form-label">Genetic Mutations :</label>
+            <select class="form-control" name="genmutations" required>
+              <option value="SOD1">SOD1</option>
+              <option value="TARDBP">TARDBP</option>
+              <option value="FUS">FUS</option>
+              <option value="UBQLN2">UBQLN2</option>
+              <option value="C9ORF72">C9ORF72</option>
+             </select>
           </div>
           <div class="col-sm-6">
-            <label class="form-label">Sex :</label>
-            <div class="check">
-              <label>Female</label>
-              <input type="radio" name="gender" value="female" required checked="checked">
-              <label>Male</label>
-              <input type="radio" name="gender" value="male" required>
-            </div>
+            <label class="form-label">Family History :</label>
+            <input type="text" class="form-control" name="familyhistory" required>
           </div>
         </div>
+        <div class="row">
+         <div class="col-sm-6">
+          <label class="form-label">Medical History :</label>
+          <input type="text" class="form-control" name="medhistory" required>
+         </div> 
+         <div class="col-sm-6">
+          <label class="form-label">Disease onset :</label>
+          <input type="date" class="form-control" name="onset" required>
+         </div>
+        </div>
         <div>
-          <div>
+          <div style="margin-top: 20px;">
             <button id="prevStepBtn" style="background-color: #146C94; color: aliceblue;  text-align: left;" class="btn btn-default" type="button"> Previous Step</button>
-            <button  id="savePatientBtn" style=" margin-left: 520px; background-color: #146C94; color: aliceblue; text-align: right;" class="btn btn-default" type="submit" data-toggle="modal" data-target="#myModal">Save Patient</button>
+            <button id="savePatientBtn" style="margin-left: 520px; background-color: #146C94; color: aliceblue; text-align: right;" class="btn btn-default" type="submit">Save Patient</button>
           </div>
         </div>
         
       </div>
     </section>
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Patient Added</h4>
-        </div>
-        <div class="modal-body">
-          You can view your patients and make a survey.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">Patient Added</h4>
+              </div>
+              <div class="modal-body">
+                  You can view your patients and make a survey.
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
 </form>
 </section>
-    <script>
+<script>
+  const step1 = document.querySelector('#step-1');
+  const step2 = document.querySelector('#step-2');
+  const nextBtn = document.querySelector('#nextStepBtn');
+  const prevBtn = document.querySelector('#prevStepBtn');
+  const saveBtn = document.querySelector('#savePatientBtn');
 
+  // When the "Next Step" button is clicked, hide step 1 and show step 2
+  nextBtn.addEventListener('click', function () {
+      const requiredInputs1 = document.querySelectorAll('#step-1 input[required]');
+      const radioGroup = document.querySelectorAll('#step-1 input[name="gender"]:checked');
+      let allInputsFilled1 = true;
 
-const step1 = document.querySelector('#step-1');
-const step2 = document.querySelector('#step-2');
-const nextBtn = document.querySelector('#nextStepBtn');
-const prevBtn = document.querySelector('#prevStepBtn');
-const saveBtn = document.querySelector('#savePatientBtn');
+      // Loop through each required input in step 1 and check if it has a value
+      for (let i = 0; i < requiredInputs1.length; i++) {
+          if (!requiredInputs1[i].value) {
+              allInputsFilled1 = false;
+              break;
+          }
+      }
 
-// When the "Next Step" button is clicked, hide step 1 and show step 2
-nextBtn.addEventListener('click', function() {
-  const requiredInputs = document.querySelectorAll('#step-1 input[required]');
-  const radioGroup = document.querySelectorAll('#step-1 input[name="gender"]:checked');
-  let allInputsFilled = true;
-  
-  // Loop through each required input and check if it has a value
-  for (let i = 0; i < requiredInputs.length; i++) {
-    if (!requiredInputs[i].value) {
-      allInputsFilled = false;
-      break;
-    }
-  }
-  
-  // Check if the radio button group is filled
-  if (radioGroup.length === 0) {
-    allInputsFilled = false;
-  }
-  
-  // If all required inputs are filled, hide step 1 and show step 2
-  if (allInputsFilled) {
-    step1.style.display = 'none';
-    step2.style.display = 'block';
-  } else {
-    // If not all required inputs are filled, show an alert
-    alert('Please fill all required inputs before moving to the next step.');
-  }
-});
+      // Check if the radio button group is filled in step 1
+      if (radioGroup.length === 0) {
+          allInputsFilled1 = false;
+      }
 
-prevBtn.addEventListener('click', function() {
-  step2.style.display = 'none';
-  step1.style.display = 'block';
-})
-document.getElementById('myForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-  let err = false;
-  if (!err) {
-    const firstNameInput = document.querySelector('input[name="fname"]');
-    const lastNameInput = document.querySelector('input[name="lname"]');
-    const addressInput = document.querySelector('input[name="address"]');
+      // If all required inputs in step 1 are filled, move to step 2
+      if (allInputsFilled1) {
+          step1.style.display = 'none';
+          step2.style.display = 'block';
+      } else {
+          // If not all required inputs in step 1 are filled, show an alert
+          alert('Please fill all required inputs before moving to the next step.');
+      }
+  });
 
-    const firstNameValue = firstNameInput.value.charAt(0).toUpperCase() + firstNameInput.value.slice(1).toLowerCase();
-    const lastNameValue = lastNameInput.value.charAt(0).toUpperCase() + lastNameInput.value.slice(1).toLowerCase();
-    const addressValue = addressInput.value.charAt(0).toUpperCase() + addressInput.value.slice(1).toLowerCase();
-    firstNameInput.value = firstNameValue;
-    lastNameInput.value = lastNameValue;
-    addressInput.value = addressValue;
+  // When the "Previous Step" button is clicked, hide step 2 and show step 1
+  prevBtn.addEventListener('click', function () {
+      step2.style.display = 'none';
+      step1.style.display = 'block';
+  });
 
-    $('#myModal').modal('show');
-  }
-});
+  // When the form is submitted
+  document.getElementById('myForm').addEventListener('submit', function (event) {
+      event.preventDefault();
 
-$('#myModal').on('hidden.bs.modal', function (e) {
-  document.getElementById('myForm').submit();
-});
+      const requiredInputs1 = document.querySelectorAll('#step-1 input[required]');
+      let allInputsFilled1 = true;
+
+      // Loop through each required input in step 1 and check if it has a value
+      for (let i = 0; i < requiredInputs1.length; i++) {
+          if (!requiredInputs1[i].value) {
+              allInputsFilled1 = false;
+              break;
+          }
+      }
+
+      // Check if the radio button group is filled in step 1
+      const radioGroup = document.querySelectorAll('#step-1 input[name="gender"]:checked');
+      if (radioGroup.length === 0) {
+          allInputsFilled1 = false;
+      }
+
+      if (allInputsFilled1) {
+          // If all required inputs in step 1 are filled, check step 2
+          const requiredInputs2 = document.querySelectorAll('#step-2 input[required]');
+          let allInputsFilled2 = true;
+
+          // Loop through each required input in step 2 and check if it has a value
+          for (let i = 0; i < requiredInputs2.length; i++) {
+              if (!requiredInputs2[i].value) {
+                  allInputsFilled2 = false;
+                  break;
+              }
+          }
+
+          // If all required inputs in step 2 are filled, proceed to submit the form
+          if (allInputsFilled2) {
+              // Additional code to capitalize first name, last name, and address
+              const firstNameInput = document.querySelector('input[name="fname"]');
+              const lastNameInput = document.querySelector('input[name="lname"]');
+              const addressInput = document.querySelector('input[name="address"]');
+              const firstNameValue = firstNameInput.value.charAt(0).toUpperCase() + firstNameInput.value.slice(1).toLowerCase();
+              const lastNameValue = lastNameInput.value.charAt(0).toUpperCase() + lastNameInput.value.slice(1).toLowerCase();
+              const addressValue = addressInput.value.charAt(0).toUpperCase() + addressInput.value.slice(1).toLowerCase();
+              firstNameInput.value = firstNameValue;
+              lastNameInput.value = lastNameValue;
+              addressInput.value = addressValue;
+
+              // Show the success modal
+              $('#myModal').modal('show');
+          } else {
+              // If any required input in step 2 is missing, show an alert
+              alert('Please fill all required inputs in the second step before submitting.');
+          }
+      } else {
+          // If any required input in step 1 is missing, show an alert
+          alert('Please fill all required inputs in the first step before submitting.');
+      }
+  });
+
+  // When the "OK" button in the modal is clicked, submit the form
+  document.querySelector('#myModal .btn-default').addEventListener('click', function () {
+      document.getElementById('myForm').submit();
+  });
 </script>
 <%- include("partials/footer") %> 
